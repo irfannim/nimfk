@@ -1,4 +1,5 @@
 /* Copyright (c) 2016-2018, The Linux Foundation. All rights reserved.
+ * Copyright (C) 2021 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -227,7 +228,7 @@ struct flash_switch_data {
 	bool				enabled;
 };
 
-
+//start
 struct flashlight_node_data {
 	struct platform_device	*pdev;
 	const char				**torch_name;
@@ -240,7 +241,7 @@ struct flashlight_node_data {
 };
 
 #define NAME_SIZE	20
-
+//end
 /*
  * Flash LED configuration read from device tree
  */
@@ -1353,15 +1354,15 @@ static void qpnp_flash_led_brightness_set(struct led_classdev *led_cdev,
 	} else if (fnode) {
 		qpnp_flash_led_node_set(fnode, value);
 	}
-
+//start
 	if(!strcmp("led:switch_0", led_cdev->name) && !value)
 		if(NULL != led->flashlight_node)
 			led->flashlight_node->cdev.brightness = value;
-
+//end
 	spin_unlock(&led->lock);
 }
 
-
+//start
 static void qpnp_flashlight_led_brightness_set(struct led_classdev *led_cdev,
 						enum led_brightness value)
 {
@@ -1370,10 +1371,6 @@ static void qpnp_flashlight_led_brightness_set(struct led_classdev *led_cdev,
 	int rc;
 	int i, j;
 
-#ifdef CONFIG_KERNEL_CUSTOM_F7A
-	if (100 == value)
-		value = 70;
-#endif
 	if (!strcmp("flashlight", led_cdev->name)) {
 		flashlight_data = container_of(led_cdev, struct flashlight_node_data, cdev);
 		led = dev_get_drvdata(&flashlight_data->pdev->dev);
@@ -1737,10 +1734,10 @@ static int qpnp_flash_led_parse_each_led_dt(struct qpnp_flash_led *led,
 	fnode->strobe_ctrl = (hw_strobe << 2) | (edge_trigger << 1) |
 				active_high;
 
-       #ifdef CONFIG_KERNEL_CUSTOM_F7A
-	if(fnode->type == FLASH_LED_TYPE_TORCH)
+	#ifdef CONFIG_KERNEL_CUSTOM_F7A
+	if(fnode->type == FLASH_LED_TYPE_TORCH)  //fix torch not work after cit led test
 	{
- 		  fnode->cdev.flags |= LED_KEEP_TRIGGER;
+               fnode->cdev.flags |= LED_KEEP_TRIGGER;
 	}
 	#endif
 	rc = led_classdev_register(&led->pdev->dev, &fnode->cdev);
@@ -1792,7 +1789,7 @@ static int qpnp_flash_led_parse_each_led_dt(struct qpnp_flash_led *led,
 	return 0;
 }
 
-
+//start
 static int qpnp_flashlight_led_parse_and_register(struct qpnp_flash_led *led,
 			struct flashlight_node_data *flashlight_node, struct device_node *node)
 {
@@ -1868,7 +1865,7 @@ static int qpnp_flashlight_led_parse_and_register(struct qpnp_flash_led *led,
 	flashlight_node->cdev.dev->of_node = node;
 	return 0;
 }
-
+//end
 
 static int qpnp_flash_led_parse_and_register_switch(struct qpnp_flash_led *led,
 						struct flash_switch_data *snode,
@@ -2455,13 +2452,13 @@ static int qpnp_flash_led_probe(struct platform_device *pdev)
 				GFP_KERNEL);
 	if (!led->snode)
 		return -ENOMEM;
-
+//start
 	led->flashlight_node = devm_kcalloc(&pdev->dev, led->num_flashlight_nodes,
 				sizeof(*led->flashlight_node),
 			GFP_KERNEL);
 	if (!led->flashlight_node)
 		return -ENOMEM;
-
+//end
 	temp = NULL;
 	i = 0;
 	j = 0;
@@ -2495,7 +2492,7 @@ static int qpnp_flash_led_probe(struct platform_device *pdev)
 			}
 			j++;
 		}
-
+//start
 		if (!strcmp("flashlight", temp_string)) {
 			rc = qpnp_flashlight_led_parse_and_register(led,
 					&led->flashlight_node[k], temp);
@@ -2506,7 +2503,7 @@ static int qpnp_flash_led_probe(struct platform_device *pdev)
 			}
 			k++;
 		}
-
+//end
 	}
 
 	/* setup irqs */
