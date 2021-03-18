@@ -491,7 +491,7 @@
 		};
 
 		dfps_data_mem: dfps_data_mem@0x9f7ff000 {
-		       reg = <0 0x9f7ff000 0 0x00001000>;
+		       reg = <0 0x9f8ff000 0 0x00001000>;
 		       label = "dfps_data_mem";
 		};
 	};
@@ -905,11 +905,11 @@
 	qcom,msm-thermal {
 		compatible = "qcom,msm-thermal";
 		qcom,sensor-id = <1>;
-		qcom,poll-ms = <200>;
+		qcom,poll-ms = <150>;
 		qcom,therm-reset-temp = <115>;
-		qcom,core-limit-temp = <70>;
+		qcom,core-limit-temp = <75>;
 		qcom,core-temp-hysteresis = <10>;
-		qcom,hotplug-temp = <105>;
+		qcom,hotplug-temp = <110>;
 		qcom,hotplug-temp-hysteresis = <20>;
 		qcom,online-hotplug-core;
 		qcom,synchronous-cluster-id = <0 1>;
@@ -974,8 +974,9 @@
 	qcom,msm-core@780000 {
 		compatible = "qcom,apss-core-ea";
 		reg = <0x780000 0x1000>;
-		qcom,low-hyst-temp = <100>;
-		qcom,high-hyst-temp = <100>;
+		qcom,low-hyst-temp = <10>;
+		qcom,high-hyst-temp = <5>;
+		qcom,polling-interval = <100>;
 
 		ea0: ea0 {
 			sensor = <&sensor_information1>;
