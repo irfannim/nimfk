@@ -1224,8 +1224,7 @@
 			<  4943 /* 1296 MHz */ >,
 			<  5163 /* 1353 MHz */ >,
 			<  5931 /* 1555 MHz */ >,
-			<  6881 /* 1804 MHz */ >,
-			<  7980 /* 2092 MHz */ >;
+			<  6881 /* 1804 MHz */ >;
 	};
 
 	bwmon: qcom,cpu-bwmon {
@@ -1240,7 +1239,7 @@
 
 	mincpubw: qcom,mincpubw {
 		compatible = "qcom,devbw";
-		governor = "performance";
+		governor = "powersave";
 		qcom,src-dst-ports = <1 512>;
 		qcom,active-only;
 		qcom,bw-tbl =
@@ -1256,13 +1255,12 @@
 			<  4943 /* 1296 MHz */ >,
 			<  5163 /* 1353 MHz */ >,
 			<  5931 /* 1555 MHz */ >,
-			<  6881 /* 1804 MHz */ >,
-			<  7980 /* 2092 MHz */ >;
+			<  6881 /* 1804 MHz */ >;
 	};
 
 	memlat_cpu0: qcom,memlat-cpu0 {
 		compatible = "qcom,devbw";
-		governor = "performance";
+		governor = "powersave";
 		qcom,src-dst-ports = <1 512>;
 		qcom,active-only;
 		qcom,bw-tbl =
@@ -1278,13 +1276,12 @@
 			<  4943 /* 1296 MHz */ >,
 			<  5163 /* 1353 MHz */ >,
 			<  5931 /* 1555 MHz */ >,
-			<  6881 /* 1804 MHz */ >,
-			<  7980 /* 2092 MHz */ >;
+			<  6881 /* 1804 MHz */ >;
 	};
 
 	memlat_cpu4: qcom,memlat-cpu4 {
 		compatible = "qcom,devbw";
-		governor = "performance";
+		governor = "powersave";
 		qcom,src-dst-ports = <1 512>;
 		qcom,active-only;
 		qcom,bw-tbl =
@@ -1300,8 +1297,7 @@
 			<  4943 /* 1296 MHz */ >,
 			<  5163 /* 1353 MHz */ >,
 			<  5931 /* 1555 MHz */ >,
-			<  6881 /* 1804 MHz */ >,
-			<  7980 /* 2092 MHz */ >;
+			<  6881 /* 1804 MHz */ >;
 	};
 
 	devfreq_memlat_0: qcom,arm-memlat-mon-0 {
@@ -1309,11 +1305,9 @@
 		qcom,cpulist = <&CPU0 &CPU1 &CPU2 &CPU3>;
 		qcom,target-dev = <&memlat_cpu0>;
 		qcom,core-dev-table =
-			< 300000 381 >,
-			< 633600 572 >,
 			< 902400 762 >,
 			< 1401600 2086 >,
-			< 1881600 4943 >;
+			< 1881600 3879 >;
 	};
 
 	devfreq_memlat_4: qcom,arm-memlat-mon-4 {
@@ -1324,8 +1318,7 @@
 			< 1113600 762 >,
 			< 1401600 3879 >,
 			< 2150400 5931 >,
-			< 2208000 6881 >,
-			< 2457600 7980 >;
+			< 2457600 6881 >;
 	};
 
 	devfreq_cpufreq: devfreq-cpufreq {
@@ -1340,8 +1333,7 @@
 				< 1401600 2086 >,
 				< 1747200 2929 >,
 				< 2150400 3879 >,
-				< 2208000 6881 >,
-				< 2457600 7980 >;
+				< 2457600 6881 >;
 		};
 	};
 
